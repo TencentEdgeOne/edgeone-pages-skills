@@ -12,7 +12,7 @@ Deploy any project to **EdgeOne Pages**.
 
 ## ⛔ Critical Rules (MUST follow — never skip)
 
-1. **CLI version MUST be `1.2.9-beta.8`**. If any other version is installed, reinstall. Do NOT proceed with a wrong version.
+1. **CLI version MUST be `1.2.30` or higher**. If the installed version is lower, reinstall. Do NOT proceed with an outdated version.
 2. **NEVER truncate the deploy URL**. The `EDGEONE_DEPLOY_URL` includes `eo_token=` and `eo_time=` query parameters — they are required for access. Always output the **complete** URL.
 3. **MUST ask the user to choose China or Global site** before login. Never assume.
 4. **MUST auto-detect the login method** — browser login in desktop environments, token login in headless/remote/CI environments. Follow the decision table below.
@@ -42,20 +42,20 @@ cat .edgeone/.token 2>/dev/null
 
 | CLI version | Login status | Action |
 |-------------|-------------|--------|
-| Not installed or wrong version | — | → Go to **Install CLI** |
-| `1.2.9-beta.8` ✓ | Logged in | → Go to **Deploy** |
-| `1.2.9-beta.8` ✓ | Not logged in, has saved token | → Go to **Deploy with Token** (use saved token) |
-| `1.2.9-beta.8` ✓ | Not logged in, no saved token | → Go to **Login** |
+| Not installed or version < 1.2.30 | — | → Go to **Install CLI** |
+| `≥ 1.2.30` ✓ | Logged in | → Go to **Deploy** |
+| `≥ 1.2.30` ✓ | Not logged in, has saved token | → Go to **Deploy with Token** (use saved token) |
+| `≥ 1.2.30` ✓ | Not logged in, no saved token | → Go to **Login** |
 
 ---
 
 ## Install CLI
 
 ```bash
-npm install -g edgeone@1.2.9-beta.8
+npm install -g edgeone@latest
 ```
 
-Verify: `edgeone -v` must output `1.2.9-beta.8`. If not, retry installation.
+Verify: `edgeone -v` must output `1.2.30` or higher. If not, retry installation.
 
 ---
 
@@ -203,7 +203,7 @@ https://console.cloud.tencent.com/edgeone/pages/project/pages-xxxxxxxx/deploymen
 
 | Error | Solution |
 |-------|----------|
-| `command not found: edgeone` | `npm install -g edgeone@1.2.9-beta.8` |
+| `command not found: edgeone` | `npm install -g edgeone@latest` |
 | Browser doesn't open during login | Use token login instead |
 | "not logged in" error | `edgeone whoami` to check, then re-login or use token |
 | Auth error with token | Token may be expired — regenerate at the console |
@@ -257,7 +257,7 @@ edgeone pages link
 
 | Action | Command |
 |--------|---------|
-| Install CLI | `npm install -g edgeone@1.2.9-beta.8` |
+| Install CLI | `npm install -g edgeone@latest` |
 | Check version | `edgeone -v` |
 | Login (China) | `edgeone login --site china` |
 | Login (Global) | `edgeone login --site global` |
