@@ -73,8 +73,8 @@ Verify: `edgeone -v` must output `1.2.9-beta.8`. If not, retry installation.
 
 | Condition | Method |
 |-----------|--------|
-| Desktop with browser (`which open` or `which xdg-open` succeeds) | **Browser Login** |
-| Remote server / SSH / CI / `NO_BROWSER` | **Token Login** |
+| Local desktop IDE (e.g. VS Code, Cursor, etc.) | **Browser Login** |
+| Remote / SSH / container / CI / cloud IDE / headless | **Token Login** |
 | User explicitly requests token | **Token Login** |
 
 #### Browser Login
