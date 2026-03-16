@@ -13,7 +13,7 @@ Deploy any project to **EdgeOne Pages**.
 ## ⛔ Critical Rules (MUST follow — never skip)
 
 1. **CLI version MUST be `1.2.30` or higher**. If the installed version is lower, reinstall. Do NOT proceed with an outdated version.
-2. **NEVER truncate the deploy URL**. The `EDGEONE_DEPLOY_URL` includes `eo_token=` and `eo_time=` query parameters — they are required for access. Always output the **complete** URL.
+2. **NEVER truncate the deploy URL**. The `EDGEONE_DEPLOY_URL` includes query parameters that are required for access. Always output the **complete** URL including all query string parameters — without them the page won't load.
 3. **MUST ask the user to choose China or Global site** before login. Never assume.
 4. **MUST auto-detect the login method** — browser login in desktop environments, token login in headless/remote/CI environments. Follow the decision table below.
 5. **After token login, MUST ask if the user wants to save the token locally** for future use.
@@ -176,7 +176,7 @@ After `edgeone pages deploy` succeeds, the CLI outputs:
 
 ```
 [cli][✔] Deploy Success
-EDGEONE_DEPLOY_URL=https://my-project-abc123.edgeone.cool?eo_token=xxxx&eo_time=yyyy
+EDGEONE_DEPLOY_URL=https://my-project-abc123.edgeone.cool?<auth_query_params>
 EDGEONE_DEPLOY_TYPE=preset
 EDGEONE_PROJECT_ID=pages-xxxxxxxx
 [cli][✔] You can view your deployment in the EdgeOne Pages Console at:
@@ -187,14 +187,14 @@ https://console.cloud.tencent.com/edgeone/pages/project/pages-xxxxxxxx/deploymen
 
 | Field | How to extract | ⛔ Warning |
 |-------|---------------|-----------|
-| **Access URL** | Full value after `EDGEONE_DEPLOY_URL=` | **MUST include `?eo_token=...&eo_time=...`** — without these params the page won't load |
+| **Access URL** | Full value after `EDGEONE_DEPLOY_URL=` | **MUST include the full query string** (`?` and everything after it) — without these params the page won't load |
 | **Project ID** | Value after `EDGEONE_PROJECT_ID=` | — |
 | **Console URL** | Line after "You can view your deployment..." | — |
 
 **Show the user:**
 
 > ✅ Deployment complete!
-> - **Access URL**: `https://my-project-abc123.edgeone.cool?eo_token=xxxx&eo_time=yyyy`
+> - **Access URL**: `https://my-project-abc123.edgeone.cool?<auth_query_params>`
 > - **Console URL**: `https://console.cloud.tencent.com/edgeone/pages/project/...`
 
 ---
