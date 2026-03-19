@@ -52,8 +52,8 @@ User needs request interception / redirect / rewrite / auth guard / A/B test?
 User needs a lightweight API with ultra-low latency (simple logic, no npm)?
   → Edge Functions                            → read edge-functions.md
 
-User needs KV persistent storage?
-  → Edge Functions + KV Storage               → read edge-functions.md
+User needs KV persistent storage? (⚠️ must enable KV in console first)
+  → Edge Functions + KV Storage               → read kv-storage.md
 
 User needs complex backend logic / npm packages / database / WebSocket?
   → Node Functions                            → read node-functions.md
@@ -77,7 +77,7 @@ Need a project structure template?
 | **Max code size** | 5 MB | 128 MB | Part of edge bundle |
 | **Max request body** | 1 MB | 6 MB | N/A (passes through) |
 | **Max CPU / wall time** | 200 ms CPU | 120 s wall clock | Lightweight only |
-| **KV Storage** | ✅ Yes | ❌ No | ❌ No |
+| **KV Storage** | ✅ Yes (global variable) | ❌ No | ❌ No |
 | **WebSocket** | ❌ No | ✅ Yes | ❌ No |
 | **Use case** | Lightweight APIs, edge compute | Complex APIs, full-stack | Request preprocessing |
 
@@ -88,6 +88,7 @@ Need a project structure template?
 | Task | Read |
 |------|------|
 | Edge Functions (lightweight APIs, V8 runtime, KV Storage) | [edge-functions.md](edge-functions.md) |
+| KV Storage (persistent key-value storage on edge) | [kv-storage.md](kv-storage.md) |
 | Node Functions (npm, database, Express/Koa, WebSocket) | [node-functions.md](node-functions.md) |
 | Middleware (redirects, rewrites, auth guards, A/B testing) | [middleware.md](middleware.md) |
 | Project structure templates and common recipes | [recipes.md](recipes.md) |

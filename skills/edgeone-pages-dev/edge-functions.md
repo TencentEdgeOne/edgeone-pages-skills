@@ -88,25 +88,31 @@ export function onRequest(context) {
 
 ## KV Storage (Edge Functions only)
 
+⚠️ **Prerequisites**: You must enable KV Storage in the EdgeOne Pages console, create a namespace, and bind it to your project before using KV. See [kv-storage.md](kv-storage.md) for full setup instructions.
+
+The KV namespace is a **global variable** (name is set when binding in the console) — it is **NOT** on `context.env`.
+
 ```javascript
 // edge-functions/api/counter.js
 
 export async function onRequest(context) {
-  // Get KV namespace (must link project first via `edgeone pages link`)
-  const KV = context.env.KV;
-
+  // ⚠️ my_kv is a GLOBAL variable (name set when binding namespace in console)
+  // Do NOT use context.env.KV ❌
+  
   // Read
-  const count = await KV.get('page_views') || '0';
+  const count = await my_kv.get('page_views') || '0';
   const newCount = parseInt(count) + 1;
 
   // Write
-  await KV.put('page_views', String(newCount));
+  await my_kv.put('page_views', String(newCount));
 
   return new Response(JSON.stringify({ views: newCount }), {
     headers: { 'Content-Type': 'application/json' },
   });
 }
 ```
+
+For full KV Storage API reference and usage guide, see: [kv-storage.md](kv-storage.md)
 
 ## Supported Runtime APIs
 
