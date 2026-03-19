@@ -31,7 +31,7 @@ Deploy this Next.js project and give me the preview URL
 **Development examples:**
 
 ```
-Create an API endpoint for user registration
+Create an API for user registration
 ```
 
 ```
@@ -65,12 +65,12 @@ Deploy frontend or full-stack projects to EdgeOne Pages with a single command.
 
 Guide development of full-stack features on EdgeOne Pages — Edge Functions, Node Functions, and Middleware.
 
-**Triggers**: "create an API", "add a serverless function", "write middleware", "build a full-stack app", "add WebSocket support", "connect a database", "set up edge functions"
+**Triggers**: "create an API", "add a serverless function", "write middleware", "build a full-stack app", "add WebSocket support", "set up edge functions"
 
 **What it does**:
 - Helps choose the right runtime (Edge Functions vs Node Functions vs Middleware)
 - Provides correct project structure and file-based routing patterns
-- Guides Edge Functions development (V8 runtime, KV Storage, Web APIs)
+- Guides Edge Functions development (KV Storage, Web APIs)
 - Guides Node Functions development (Node.js, npm, Express/Koa, WebSocket)
 - Guides Middleware development (request interception, auth, redirects, A/B testing)
 - Covers local dev setup, environment variables, and debugging
@@ -80,13 +80,20 @@ Guide development of full-stack features on EdgeOne Pages — Edge Functions, No
 ```
 skills/
 ├── edgeone-pages-deploy/
-│   └── SKILL.md          # Agent instructions for deployment
+│   └── SKILL.md              # Agent instructions for deployment
 └── edgeone-pages-dev/
-    └── SKILL.md          # Agent instructions for development
+    ├── SKILL.md              # Entry point — decision tree & routing table
+    ├── edge-functions.md     # Edge Functions (Edge runtime, Web APIs)
+    ├── kv-storage.md         # KV Storage setup & API reference
+    ├── node-functions.md     # Node Functions (Node.js, npm, Express/Koa, WebSocket)
+    ├── middleware.md         # Middleware (auth, redirects, A/B testing)
+    ├── recipes.md            # Project structure templates & common recipes
+    └── troubleshooting.md    # Debugging & troubleshooting guide
 ```
 
 Each skill contains:
 - `SKILL.md` — YAML frontmatter (name + description) followed by Markdown instructions for the agent
+- Additional `.md` files — detailed reference docs routed from `SKILL.md`
 
 ## Requirements
 
