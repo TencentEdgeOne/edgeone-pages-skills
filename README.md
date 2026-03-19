@@ -5,7 +5,7 @@ Official Agent Skills for developing and deploying projects on [EdgeOne Pages](h
 ## Installation
 
 ```bash
-npx skills add TencentEdgeOne/edgeone-pages-skill
+npx skills add edgeone-pages/edgeone-pages-skill
 ```
 
 After installation, your AI coding agent will automatically detect when you want to develop or deploy and use the appropriate skill.
