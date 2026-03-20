@@ -5,7 +5,7 @@ Official Agent Skills for developing and deploying projects on [EdgeOne Pages](h
 ## Installation
 
 ```bash
-npx skills add edgeone-pages/edgeone-pages-skill
+npx skills add edgeone-pages/edgeone-pages-skills
 ```
 
 After installation, your AI coding agent will automatically detect when you want to develop or deploy and use the appropriate skill.
@@ -94,6 +94,28 @@ skills/
 Each skill contains:
 - `SKILL.md` — YAML frontmatter (name + description) followed by Markdown instructions for the agent
 - Additional `.md` files — detailed reference docs routed from `SKILL.md`
+
+## Trigger Evaluation
+
+Automated test suite to verify skill trigger accuracy. Uses Claude API as a "skill router" to batch-test 45 queries (20 per skill + 5 cross-trigger) and compute Precision / Recall / F1.
+
+```bash
+# Run full evaluation
+ANTHROPIC_API_KEY=sk-xxx node eval/run-eval.mjs
+
+# Verbose mode — print model's reasoning for each query
+ANTHROPIC_API_KEY=sk-xxx node eval/run-eval.mjs --verbose
+
+# Test a single skill
+ANTHROPIC_API_KEY=sk-xxx node eval/run-eval.mjs --skill=edgeone-pages-deploy --verbose
+
+# Use a different model
+ANTHROPIC_API_KEY=sk-xxx node eval/run-eval.mjs --model=claude-opus-4-20250514
+```
+
+Pass criteria: **Precision ≥ 0.90, Recall ≥ 0.80, F1 ≥ 0.85** per skill. Results are saved to `eval/results.json`.
+
+See [`eval/trigger-tests.md`](eval/trigger-tests.md) for the full test case design and boundary analysis.
 
 ## Requirements
 
