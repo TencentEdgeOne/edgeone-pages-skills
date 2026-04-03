@@ -63,15 +63,18 @@ Deploy frontend or full-stack projects to EdgeOne Pages with a single command.
 
 ### `edgeone-pages-dev`
 
-Guide development of full-stack features on EdgeOne Pages — Edge Functions, Node Functions, and Middleware.
+Guide development of full-stack features on EdgeOne Pages — Edge Functions, Cloud Functions (Node.js / Go / Python runtimes), and Middleware.
 
-**Triggers**: "create an API", "add a serverless function", "write middleware", "build a full-stack app", "add WebSocket support", "set up edge functions"
+**Triggers**: "create an API", "add a serverless function", "write middleware", "build a full-stack app", "add WebSocket support", "set up edge functions", "create a Go API", "build a Python backend", "use Flask/FastAPI/Gin on EdgeOne Pages"
 
 **What it does**:
-- Helps choose the right runtime (Edge Functions vs Node Functions vs Middleware)
+- Helps choose the right runtime (Edge Functions vs Cloud Functions vs Middleware)
 - Provides correct project structure and file-based routing patterns
 - Guides Edge Functions development (KV Storage, Web APIs)
-- Guides Node Functions development (Node.js, npm, Express/Koa, WebSocket)
+- Guides Cloud Functions development:
+  - **Node.js** — npm, database, Express/Koa, WebSocket
+  - **Go** — Gin, Echo, Chi, Fiber, standard net/http
+  - **Python** — Flask, FastAPI, Django, Sanic, Handler class
 - Guides Middleware development (request interception, auth, redirects, A/B testing)
 - Covers local dev setup, environment variables, and debugging
 
@@ -80,20 +83,25 @@ Guide development of full-stack features on EdgeOne Pages — Edge Functions, No
 ```
 skills/
 ├── edgeone-pages-deploy/
-│   └── SKILL.md              # Agent instructions for deployment
+│   ├── SKILL.md                        # Core deployment flow & decision table
+│   └── references/
+│       └── command-reference.md        # CLI commands, env vars, token management
 └── edgeone-pages-dev/
-    ├── SKILL.md              # Entry point — decision tree & routing table
-    ├── edge-functions.md     # Edge Functions (Edge runtime, Web APIs)
-    ├── kv-storage.md         # KV Storage setup & API reference
-    ├── node-functions.md     # Node Functions (Node.js, npm, Express/Koa, WebSocket)
-    ├── middleware.md         # Middleware (auth, redirects, A/B testing)
-    ├── recipes.md            # Project structure templates & common recipes
-    └── troubleshooting.md    # Debugging & troubleshooting guide
+    ├── SKILL.md                        # Entry point — decision tree & routing table
+    └── references/
+        ├── edge-functions.md           # Edge Functions (V8 runtime, Web APIs)
+        ├── kv-storage.md              # KV Storage setup & API reference
+        ├── node-functions.md          # Cloud Functions — Node.js (npm, Express/Koa, WebSocket)
+        ├── go-functions.md            # Cloud Functions — Go (Gin, Echo, Chi, Fiber, net/http)
+        ├── python-functions.md        # Cloud Functions — Python (Flask, FastAPI, Django, Sanic)
+        ├── middleware.md              # Middleware (auth, redirects, A/B testing)
+        ├── recipes.md                 # Project structure templates & common recipes
+        └── troubleshooting.md         # Debugging & troubleshooting guide
 ```
 
-Each skill contains:
-- `SKILL.md` — YAML frontmatter (name + description) followed by Markdown instructions for the agent
-- Additional `.md` files — detailed reference docs routed from `SKILL.md`
+Each skill follows the [skill-creator](https://github.com/anthropics/skills) standard:
+- `SKILL.md` — YAML frontmatter (name + description) + core instructions (<5k words)
+- `references/` — detailed reference docs loaded on demand, routed from `SKILL.md`
 
 ## Trigger Evaluation
 

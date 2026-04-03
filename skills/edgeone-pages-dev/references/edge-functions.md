@@ -88,7 +88,7 @@ export function onRequest(context) {
 
 ## KV Storage (Edge Functions only)
 
-⚠️ **Prerequisites**: You must enable KV Storage in the EdgeOne Pages console, create a namespace, and bind it to your project before using KV. See [kv-storage.md](kv-storage.md) for full setup instructions.
+⚠️ **Prerequisites**: You must enable KV Storage in the EdgeOne Pages console, create a namespace, and bind it to your project before using KV. See [kv-storage.md](kv-storage.md) for full setup instructions (same directory).
 
 The KV namespace is a **global variable** (name is set when binding in the console) — it is **NOT** on `context.env`.
 
@@ -112,7 +112,7 @@ export async function onRequest(context) {
 }
 ```
 
-For full KV Storage API reference and usage guide, see: [kv-storage.md](kv-storage.md)
+For full KV Storage API reference and usage guide, see: [kv-storage.md](kv-storage.md) (same directory).
 
 ## Supported Runtime APIs
 
