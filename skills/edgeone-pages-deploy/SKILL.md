@@ -26,6 +26,7 @@ Deploy any project to **EdgeOne Pages**.
 3. **Ask the user to choose China or Global site** before login. Never assume.
 4. **Auto-detect the login method** — browser login in desktop environments, token login in headless/remote/CI environments. Follow the decision table below.
 5. **After token login, ask if the user wants to save the token locally** for future use.
+6. **Before triggering any browser popup (login / 注册), explain the reason and the benefits to the user first** — never silently launch a browser window.
 
 ---
 
@@ -70,6 +71,20 @@ Verify: `edgeone -v` — confirm output is `1.2.30` or higher. Retry installatio
 
 ## Login
 
+### 0. Explain the registration/login step
+
+Before triggering any login flow, explain to the user **why** this step is needed and **what** to expect. Do not silently launch a browser window.
+
+Tell the user:
+
+> 接下来需要登录 / 注册 EdgeOne Pages 账号，原因和收益如下：
+> - **为什么要登录**：部署需要把构建产物上传到你自己的账号下，生成独立的访问 URL 和项目记录。
+> - **免费能得到什么**：EdgeOne Pages 提供免费额度，包含全球 CDN 加速、自动 HTTPS、以及自定义域名绑定能力，个人项目通常完全够用。
+> - **接下来会发生什么**：我会运行 `edgeone login`，你的默认浏览器会自动弹出腾讯云登录页面，请在浏览器中完成登录 / 注册并授权，然后回到这里。
+> - **如果卡住了**：如果浏览器没弹出，或者你在浏览器里完成登录后 CLI 仍在等待，请告诉我，我会切换到 Token 登录方式。
+
+如果用户长时间（例如超过 1–2 分钟）没有反馈登录完成，**主动询问**用户当前状态（浏览器是否打开、是否遇到报错、是否需要改用 Token 登录），不要无限期等待。
+
 ### 1. Ask the user to choose a site
 
 Use the IDE's selection control (`ask_followup_question`) before running any login command:
@@ -97,6 +112,12 @@ edgeone login --site global
 ```
 
 Wait for the user to complete browser auth. The CLI prints a success message when done.
+
+⚠️ **浏览器 Session 复用陷阱**：如果用户此前已经在同一个浏览器登录过 EdgeOne Pages 的**另一个站点**（例如之前登过国际站，这次要登国内站，或反之），浏览器可能**静默复用旧的腾讯云 session**，CLI 会以为登录成功，但实际绑定的是错误账号，后续 `deploy` 时会出现 auth 错误或 `whoami` 显示意外账号。
+
+遇到这种情况，引导用户：
+1. 在弹出的登录页点击「**使用其他账户登录**」切换账号；或
+2. 先从**所有腾讯云控制台**（国内站 `console.cloud.tencent.com` 和国际站 `console.intl.cloud.tencent.com`）退出登录，再重新执行 `edgeone login`。
 
 #### Token Login
 
@@ -205,6 +226,8 @@ https://console.cloud.tencent.com/edgeone/pages/project/pages-xxxxxxxx/deploymen
 > ✅ Deployment complete!
 > - **Access URL**: `https://my-project-abc123.edgeone.cool?<auth_query_params>`
 > - **Console URL**: `https://console.cloud.tencent.com/edgeone/pages/project/...`
+>
+> ℹ️ 说明：此预览链接用于快速验证部署结果。在国内网络环境下访问时，因域名备案状态 / 加速策略等原因，链接可能在一段时间后或被分享给他人访问时出现访问限制（如 401）。如需长期稳定对外访问，建议绑定已备案的自定义域名。
 
 ---
 
@@ -216,6 +239,8 @@ https://console.cloud.tencent.com/edgeone/pages/project/pages-xxxxxxxx/deploymen
 | Browser does not open during login | Switch to token login |
 | "not logged in" error | Run `edgeone whoami` to check, then re-login or use token |
 | Auth error with token | Token may be expired — regenerate at the console |
+| 登录显示成功，但 `deploy` 报 auth / 鉴权错误 | 浏览器复用了错误站点的旧 session，导致账号错位。点击登录页的「使用其他账户登录」重新登录，或先从所有腾讯云控制台退出后再试 |
+| `edgeone whoami` 显示的是意外账号 | 同上：浏览器 session 复用导致。使用「使用其他账户登录」切换，或从所有腾讯云控制台退出后重登 |
 | Project name conflict | Use a different name with `-n` |
 | Build failure | Check logs — usually missing deps or bad build script |
 
