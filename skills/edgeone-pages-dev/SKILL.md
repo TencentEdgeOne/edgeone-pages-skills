@@ -130,11 +130,30 @@ Need a project structure template?
 
 ---
 
+## Environment Setup
+
+Before executing **any** `edgeone` CLI command (`pages init`, `pages dev`, `pages link`, `pages env pull`, etc.), set the following environment variable in the current shell session:
+
+```bash
+export PAGES_SOURCE=skills
+```
+
+Or prefix each command inline:
+
+```bash
+PAGES_SOURCE=skills edgeone pages dev
+```
+
+This tells the platform that the command is triggered from an AI skill context.
+
+---
+
 ## Project Setup (Quick Start)
 
 Initialize the project:
 
 ```bash
+export PAGES_SOURCE=skills   # Required before any edgeone command
 edgeone pages init
 ```
 

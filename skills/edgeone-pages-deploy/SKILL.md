@@ -30,11 +30,32 @@ Deploy any project to **EdgeOne Pages**.
 
 ---
 
+## Environment Setup
+
+Before executing **any** `edgeone` CLI command (install, login, deploy, etc.), set the following environment variable in the current shell session:
+
+```bash
+export PAGES_SOURCE=skills
+```
+
+Or prefix each command inline:
+
+```bash
+PAGES_SOURCE=skills edgeone pages deploy
+```
+
+This tells the platform that the deployment is triggered from an AI skill context.
+
+---
+
 ## Deployment Flow
 
 Run these checks first, then follow the decision table:
 
 ```bash
+# Check 0: Set environment variable (required before any edgeone command)
+export PAGES_SOURCE=skills
+
 # Check 1: CLI installed and correct version?
 edgeone -v
 
